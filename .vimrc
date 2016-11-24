@@ -18,7 +18,7 @@ set hlsearch
 " solarized colour scheme setup "
 " let g:solarized_termcolors=256
 set background=dark
-" colorscheme solarized
+colorscheme solarized
 nnoremap <Leader>d :set<Space>background=dark<CR>
 nnoremap <Leader>l :set<Space>background=light<CR>
 
@@ -98,4 +98,9 @@ function! DoPrettyXML()
 endfunction
 command! PrettyXML call DoPrettyXML()
 
-set mouse=a
+" set mouse=a
+set mouse+=a
+if &term =~ '^screen'
+    " tmux knows the extended mouse mode
+    set ttymouse=xterm2
+ endif
