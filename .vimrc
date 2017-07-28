@@ -103,4 +103,7 @@ set mouse+=a
 if &term =~ '^screen'
     " tmux knows the extended mouse mode
     set ttymouse=xterm2
- endif
+endif
+
+" write a read-only file!
+cmap w!! w !sudo tee % >/dev/null
