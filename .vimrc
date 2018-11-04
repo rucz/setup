@@ -8,6 +8,8 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set nu
+nnoremap <Leader>n :set nu<CR>
+nnoremap <Leader>nn :set nonu<CR>
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
@@ -15,10 +17,26 @@ set ignorecase          " case insensitive searching
 set smartcase           " but become case sensitive if you type uppercase characters
 set hlsearch
 
-" solarized colour scheme setup "
-" let g:solarized_termcolors=256
-set background=dark
-colorscheme solarized
+" solarized colour scheme setup for gnome terminal"
+" from http://stackoverflow.com/questions/23118916/configuring-solarized-colorscheme-in-gnome-terminal-tmux-and-vim
+" set t_Co=256
+" set background=dark
+" colorscheme solarized
+
+" Don't solarize in terminal as it alread has the colour scheme
+if &term!~'screen'
+    set background=dark
+    colorscheme solarized
+endif
+
+" gvim specific settings here                       
+if has('gui_running')
+    set background=dark
+    colorscheme solarized
+    " set guioptions-=T    " no toolbar
+    " set linespace=5      " to show underscores not as space
+endif
+
 nnoremap <Leader>d :set<Space>background=dark<CR>
 nnoremap <Leader>l :set<Space>background=light<CR>
 
@@ -41,6 +59,8 @@ nnoremap <Leader>6 :b<Space>6<CR>
 nnoremap <Leader>7 :b<Space>7<CR>
 nnoremap <Leader>8 :b<Space>8<CR>
 nnoremap <Leader>9 :b<Space>9<CR>
+
+nnoremap <Leader>p viw"ap
 
 " use the tab key to bring up a menu and rotate through possible completions
 set wildchar=<Tab>
@@ -97,13 +117,10 @@ function! DoPrettyXML()
     exe "set ft=" . l:origft
 endfunction
 command! PrettyXML call DoPrettyXML()
+set mouse=a
 
-" set mouse=a
-set mouse+=a
-if &term =~ '^screen'
-    " tmux knows the extended mouse mode
-    set ttymouse=xterm2
-endif
+" setup ctrl-p extension
+" set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " write a read-only file!
 cmap w!! w !sudo tee % >/dev/null
